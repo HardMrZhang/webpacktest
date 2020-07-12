@@ -1,0 +1,55 @@
+<!--index.wxml-->
+
+<template lang="pug">
+	view.container
+	 view.userinfo(bindTap='bindViewTap')
+	   text.userinfo-nickname {{userInfo.nickName}}
+</template>
+<script>
+const {regeneratorRuntime,util} = global
+const app = getApp()
+Page({
+	data: {
+		motto: 'Hello World',
+		userInfo: {},
+	},
+	//事件处理函数
+	bindViewTap: function() {
+		wx.navigateTo({
+			url: '../logs/logs'
+		})
+	},
+	async onLoad: function() {
+		var that = this
+		const userInfo = await app.getUserInfo()
+		function(userInfo){
+			this.setData({
+				userInfo:userInfo
+			})
+		}
+})
+</script>
+
+<style lang="sass">
+.userinfo 
+	display: flex
+	flex-direction: column
+	align-items: center
+
+
+.userinfo-avatar 
+	width: 128rpx
+	height: 128rpx
+	margin: 20rpx
+	border-radius: 50%
+
+
+.userinfo-nickname 
+	color: #aaa
+
+
+.usermotto 
+	margin-top: 200px
+
+</style>
+
