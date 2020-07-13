@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const {
     flatMap
 } = require('lodash')
@@ -78,8 +79,8 @@ module.exports = {
     },
     plugins: [
         extractSass,
-        new CopyWebpackPlugin({
-            patterns: [{
+        new CopyWebpackPlugin(
+            [{
                 from: {
                     glob: 'pages/**/*.json',
                 },
@@ -88,12 +89,28 @@ module.exports = {
                 from: 'static',
                 to: 'static',
             }],
-        }),
+        ),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.UglifyJsPlugin({
-            souceMap: false
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap:false
+        // }),
         new ProgressBarPlugin()
-    ]
+    ],
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: false
+                    },
+                    compress: {
+                        warnings: false,
+                        drop_debugger: true,
+                        drop_console: true
+                    },
+                }
+            }),
+        ]
+    },
 
 }

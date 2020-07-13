@@ -49,7 +49,7 @@ renderConf.output = {
 //声明一个编译器
 var compiler = webpack(renderConf)
 
-fs.writeFile(r('./mina/app.json'),JSON.stringify(config.json),'utf8')
+fs.writeFile(r('./mina/app.json'),JSON.stringify(config.json),'utf8',()=>{})
 
 
 

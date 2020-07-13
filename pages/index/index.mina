@@ -14,19 +14,18 @@ Page({
 		userInfo: {},
 	},
 	//事件处理函数
-	bindViewTap: function() {
+	bindViewTap() {
 		wx.navigateTo({
-			url: '../logs/logs'
+			url: ' '
 		})
 	},
-	async onLoad: function() {
-		var that = this
+	async onLoad() {
 		const userInfo = await app.getUserInfo()
-		function(userInfo){
 			this.setData({
 				userInfo:userInfo
 			})
-		}
+	
+	}
 })
 </script>
 
